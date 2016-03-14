@@ -1,0 +1,88 @@
+
+CREATE DATABASE IF NOT EXISTS `facultative` ;
+USE `facultative`;
+
+
+
+CREATE TABLE IF NOT EXISTS `ACCOUNT` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(100) DEFAULT NULL,
+  `LOGIN` varchar(100) NOT NULL,
+  `PASSWORD` varchar(50) NOT NULL DEFAULT '0',
+  `ROLE` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `LOGIN` (`LOGIN`),
+  UNIQUE KEY `ID` (`ID`)
+) ;
+
+
+INSERT INTO `ACCOUNT` (`ID`, `NAME`, `LOGIN`, `PASSWORD`, `ROLE`) VALUES
+    (1, 'student 1', 'student_1', 'stud', 'STUDENT'),
+	(2, 'student 2', 'student_2', 'stud', 'STUDENT'),
+	(3, 'teacher_1', 'teacher_1', 'teach', 'TEACHER'),
+	(4, 'teacher_2 ', 'teacher_2', 'teach', 'TEACHER');
+
+
+
+
+CREATE TABLE IF NOT EXISTS `COURSE` (
+  `ID` int(15) NOT NULL AUTO_INCREMENT,
+  `TITLE` varchar(50) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID` (`ID`)
+) ;
+
+
+INSERT INTO `COURSE` (`ID`, `TITLE`) VALUES
+	(1, 'course 1'),
+	(2, 'course 2');
+
+
+
+
+CREATE TABLE IF NOT EXISTS `FACULTY` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `COURSE` int(11) NOT NULL DEFAULT '0',
+  `STATUS` varchar(50) NOT NULL DEFAULT '0',
+  `TEACHER` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID` (`ID`)
+  
+) ;
+
+
+INSERT INTO `FACULTY` (`ID`, `COURSE`, `STATUS`, `TEACHER`) VALUES
+	(1, 1, 'STARTED', 3),
+	(2, 2, 'STARTED', 4),
+	(3, 1, 'ENDED', 3),
+	(4, 2, 'ENDED', 4);
+
+CREATE TABLE IF NOT EXISTS `FACULTY-STUDENT` (
+  `FACULTY` int(11) NOT NULL,
+  `STUDENT` int(11) NOT NULL
+);
+
+
+
+INSERT INTO `FACULTY-STUDENT` (`FACULTY`, `STUDENT`) VALUES
+	(3, 1),
+	(3, 2),
+	(2, 1),
+	(2, 2);
+
+
+
+
+CREATE TABLE IF NOT EXISTS `MARK` (
+  `STUDENT` int(11) NOT NULL,
+  `FACULTY` int(11) NOT NULL,
+  `MARK` varchar(10) NOT NULL
+  
+) ;
+
+
+INSERT INTO `MARK` (`STUDENT`, `FACULTY`, `MARK`) VALUES
+	(1, 3, '4'),
+	(2, 3, '2'),
+	(1, 4, '5');
+
